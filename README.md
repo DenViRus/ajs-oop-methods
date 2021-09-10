@@ -1,1 +1,1 @@
-## **OOP: Classes, Inheritance.**
+## **OOP: Methods.**

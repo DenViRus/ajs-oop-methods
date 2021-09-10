@@ -145,3 +145,50 @@ test('Create new Daemon', () => {
 
   expect(received).toEqual(expected);
 });
+
+test('levelUp()', () => {
+  const daemomRex = new Daemon('Rex', 'Daemon');
+  daemomRex.levelUp();
+  daemomRex.levelUp();
+  expect(3).toBe(daemomRex.level);
+});
+test('levelUp() - 2', () => {
+  const magicianMerlin = new Magician('Merlin', 'Magician');
+  magicianMerlin.levelUp();
+  expect(2).toEqual(magicianMerlin.level);
+});
+
+test('levelUp() for deadman', () => {
+  const zombieSean = new Zombie('Sean', 'Zombie');
+  zombieSean.health = 0;
+  expect(() => zombieSean.levelUp()).toThrow();
+});
+test('levelUp() for deadman - 2', () => {
+  const swordsmanRichard = new Swordsman('Richard', 'Swordsman');
+  swordsmanRichard.health = -2;
+  expect(() => swordsmanRichard.levelUp()).toThrow();
+});
+
+test('damage()', () => {
+  const bowmanJohn = new Bowman('John', 'Bowman');
+  const swordsmanRichard = new Swordsman('Richard', 'Swordsman');
+
+  bowmanJohn.damage(swordsmanRichard.attack);
+
+  expect(70).toBe(bowmanJohn.health);
+});
+test('damage() - 2', () => {
+  const swordsmanRichard = new Swordsman('Richard', 'Swordsman');
+  const magicianMerlin = new Magician('Merlin', 'Magician');
+  swordsmanRichard.damage(magicianMerlin.attack);
+
+  expect(91).toBeCloseTo(swordsmanRichard.health);
+});
+
+test('damage() for deadman', () => {
+  const undeadDuncan = new Undead('Duncan', 'Undead');
+  const swordsmanRichard = new Swordsman('Richard', 'Swordsman');
+  undeadDuncan.health = -1;
+
+  expect(() => undeadDuncan.damage(swordsmanRichard.attack)).toThrow();
+});
